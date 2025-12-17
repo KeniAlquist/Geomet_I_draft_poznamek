@@ -1,0 +1,348 @@
+/* ===========================
+   PDF Export for Geometrie I
+   =========================== */
+
+/* Apply only in PDF/Print mode */
+@media print {
+  
+  /* === FONT SETUP === */
+  @import url('https://fonts.googleapis.com/css2?family=Computer+Modern+Serif&display=swap');
+  
+  body {
+    font-family: "Latin Modern Roman", "Computer Modern Serif", "Times New Roman", serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #000;
+    background: white;
+  }
+  
+  /* === HEADINGS === */
+  h1 {
+    font-size: 22pt;
+    font-weight: bold;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  h2 {
+    font-size: 16pt;
+    font-weight: bold;
+    margin-top: 18pt;
+    margin-bottom: 9pt;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  h3 {
+    font-size: 13pt;
+    font-weight: bold;
+    margin-top: 14pt;
+    margin-bottom: 7pt;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  h4 {
+    font-size: 11pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+  }
+  
+  /* Interní odkazy – vypadají jako obyèejný text */
+    a.internal-link[href*="#"],
+  a.internal-link[href] {
+    color: #000 !important;              /* stejná barva jako okolní text */
+    text-decoration: none !important;       /* zruší podtržení */
+    font-weight: inherit;        /* žádný skok na bold */
+    text-shadow: 0 0 0.15pt currentColor !important; /* opticky trochu „tlustší“ */
+  }
+  
+  /* Odkazy zùstanou v PDF klikateln é */
+  a.internal-link[href] {
+    pointer-events: auto;
+  }
+
+  
+  /* External links */
+  a[href^="http"] {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+  
+  /* === HIDE NAVIGATION ELEMENTS === */
+  .dataview,
+  .block-language-dataviewjs,
+  .frontmatter-container,
+  .inline-title {
+    display: none !important;
+  }
+  
+  /* Hide "up | prev | next" navigation */
+  p:has(a[href*="prev"]):has(a[href*="next"]) {
+    display: none !important;
+  }
+  
+  /* === PAGE BREAKS === */
+  .page-break {
+    page-break-after: always;
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Force page break before each main topic heading */
+  .markdown-preview-view h1 {
+    page-break-before: always;
+  }
+  
+  /* But not for the first heading */
+  .markdown-preview-view h1:first-child {
+    page-break-before: avoid;
+  }
+  
+  /* === PARAGRAPHS === */
+  p {
+    margin: 0.8em 0;
+    text-align: justify;
+    hyphens: auto;
+    orphans: 3;
+    widows: 3;
+  }
+  
+  /* === LISTS === */
+  ul, ol {
+    margin: 0.8em 0;
+    padding-left: 2em;
+  }
+  
+  li {
+    margin: 0.4em 0;
+  }
+  
+  /* === IMAGES & FIGURES === */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+    page-break-inside: avoid;
+  }
+  
+  figure {
+    page-break-inside: avoid;
+    margin: 1em 0;
+  }
+  
+  figcaption {
+    font-size: 10pt;
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.5em;
+  }
+  
+  /* === TABLES === */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+    page-break-inside: avoid;
+    font-size: 10pt;
+  }
+  
+  th, td {
+    border: 1px solid #333;
+    padding: 0.4em;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  /* === CODE BLOCKS === */
+  pre {
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+    padding: 0.8em;
+    background-color: #f8f8f8;
+    overflow-x: auto;
+    font-size: 9pt;
+  }
+  
+  code {
+    font-family: "Courier New", monospace;
+    font-size: 9pt;
+  }
+  
+  /* === BLOCKQUOTES === */
+  blockquote {
+    border-left: 3px solid #ccc;
+    padding-left: 1em;
+    margin: 1em 0;
+    font-style: italic;
+    color: #333;
+    page-break-inside: avoid;
+  }
+  
+  /* === HIDE EMBED BORDERS/BARS === */
+  /* Remove the left border from embedded notes */
+  .markdown-embed,
+  .internal-embed {
+    border-left: none !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+  
+  /* Hide the embed indicator/link at the top */
+  .markdown-embed-title,
+  .markdown-embed-link {
+    display: none !important;
+  }
+  
+  /* Remove any decorative elements from embeds */
+  .markdown-embed::before,
+  .markdown-embed::after {
+    display: none !important;
+  }
+  
+  /* === TITLE PAGE === */
+  .title-page {
+    text-align: center;
+    padding-top: 30%;
+    page-break-after: always;
+  }
+  
+  .title-page h1 {
+    font-size: 32pt;
+    margin-bottom: 0.5em;
+  }
+  
+  .title-page h2 {
+    font-size: 20pt;
+    font-weight: normal;
+    margin-bottom: 2em;
+  }
+  
+  /* === TABLE OF CONTENTS === */
+  #obsah + ul,
+  #obsah + ol {
+    list-style: none;
+    counter-reset: toc-counter;
+  }
+  
+  #obsah + ul li::before,
+  #obsah + ol li::before {
+    counter-increment: toc-counter;
+    content: counter(toc-counter) ". ";
+    font-weight: bold;
+    margin-right: 0.5em;
+  }
+  
+  /* === DEFINITION BOXES === */
+  .callout {
+    border: 1px solid #333;
+    padding: 0.8em;
+    margin: 1em 0;
+    page-break-inside: avoid;
+  }
+  
+  .callout-title {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  
+  /* === THEOREM/LEMMA STYLING === */
+  strong:has(+ em) {
+    font-variant: small-caps;
+  }
+  
+  /* === PAGE LAYOUT === */
+  @page {
+    size: A4;
+    margin: 2cm 2.5cm;
+  }
+  
+  @page :first {
+    margin-top: 0;
+  }
+  
+  /* Header and Footer (if supported) */
+  @page :left {
+    margin-left: 2cm;
+    margin-right: 2.5cm;
+  }
+  
+  @page :right {
+    margin-left: 2cm;
+    margin-right: 2.5cm;
+  }
+  
+  /* === AVOID BREAKS === */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+  
+  p + ul, p + ol {
+    page-break-before: avoid;
+  }
+  
+  /* === CZECH TYPOGRAPHY === */
+  body {
+    quotes: "„" """ "‚" "'";
+  }
+  
+  q::before {
+    content: open-quote;
+  }
+  
+  q::after {
+    content: close-quote;
+  }
+}
+
+/* ===========================
+   Screen View (keep your original styling)
+   =========================== */
+@media screen {
+  /* Your original internal-link-custom-color.css */
+  a.internal-link[href*="#"],
+  .cm-s-obsidian span.cm-hmd-internal-link[href*="#"],
+  .cm-s-obsidian span.cm-hmd-internal-link .cm-underline[href*="#"],
+  .cm-s-obsidian span.cm-hashtag.cm-link {
+    font-weight: 500;
+    text-decoration: none;
+    background: linear-gradient(to bottom, var(--text-normal) 35%, #85caff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 0.25px var(--text-normal));
+    transition: all 0.25s ease;
+  }
+  
+  a.internal-link[href*="#"]:hover,
+  .cm-s-obsidian span.cm-hmd-internal-link[href*="#"]:hover,
+  .cm-s-obsidian span.cm-hmd-internal-link .cm-underline[href*="#"]:hover,
+  .cm-s-obsidian span.cm-hashtag.cm-link:hover {
+    background: none;
+    -webkit-text-fill-color: #e5f4ff;
+    filter: none;
+    text-decoration: none;
+  }
+  
+  /* Your spacingLaTeX.css */
+  mjx-mspace {
+    width: 10px !important;
+  }
+  
+  mjx-mi::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+  }
+}
